@@ -10,6 +10,7 @@
 - [Usage Examples](#usage-examples)
 - [Development](#development)
 - [Contributing](#contributing)
+- [Swagger](#swagger)
 
 A Spring Boot application that provides IP geolocation services through multiple providers with rate limiting and caching capabilities.
 
@@ -152,6 +153,15 @@ curl "http://localhost:8080/api/ip-location/lookup/provider/IPAPI/ip/8.8.8.8"
 ```properties
 curl "http://localhost:8080/api/ip-location/lookup/provider/IPAPI/ip/invalid.ip"
 Returns: 400 Bad Request with error message
+```
+
+## Swagger
+
+Once the application is running, you can access the interactive API documentation at:
+
+```properties
+**Swagger UI**: `http://localhost:8095/swagger-ui.html`
+**OpenAPI JSON**: `http://localhost:8095/v3/api-docs`
 ```
 
 ## Development
