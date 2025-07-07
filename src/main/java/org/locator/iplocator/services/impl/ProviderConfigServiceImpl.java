@@ -4,15 +4,21 @@ import lombok.RequiredArgsConstructor;
 import org.locator.iplocator.enums.ProvidersEnum;
 import org.locator.iplocator.services.ProviderConfigService;
 import org.locator.iplocator.validation.ValidationException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class ProviderConfigServiceImpl implements ProviderConfigService {
 
     private final Environment environment;
+
+    @Value("${iplocator.providers.ipgeolocation.apikey}")
+    private String ipGeolocationApiKey;
 
     @Override
     public String getResolvedUrl(ProvidersEnum provider, String ip) {
@@ -22,13 +28,12 @@ public class ProviderConfigServiceImpl implements ProviderConfigService {
         }
 
         if (provider == ProvidersEnum.IPGEOLOCATION) {
-            String apiKey = environment.getProperty("iplocator.providers.ipgeolocation.apikey");
-            if (apiKey == null) {
+            if (Objects.isNull(ipGeolocationApiKey)) {
                 throw new ValidationException("API key not configured for IPGEOLOCATION provider");
             }
 
             return UriComponentsBuilder.fromHttpUrl(baseUrl)
-                    .queryParam("apiKey", apiKey)
+                    .queryParam("apiKey", ipGeolocationApiKey)
                     .queryParam("ip", ip)
                     .toUriString();
         }
