@@ -2,9 +2,11 @@ package org.locator.iplocator.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
+@Schema(description = "IP location information")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BaseIpLocation {
 
