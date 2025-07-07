@@ -6,6 +6,7 @@ import org.locator.iplocator.services.ProviderConfigService;
 import org.locator.iplocator.validation.ValidationException;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +20,21 @@ public class ProviderConfigServiceImpl implements ProviderConfigService {
         if (baseUrl == null) {
             throw new ValidationException("URL not configured for provider: " + provider.getShortCode());
         }
-        return baseUrl.replace("{ip}", ip);
+
+        if (provider == ProvidersEnum.IPGEOLOCATION) {
+            String apiKey = environment.getProperty("iplocator.providers.ipgeolocation.apikey");
+            if (apiKey == null) {
+                throw new ValidationException("API key not configured for IPGEOLOCATION provider");
+            }
+
+            return UriComponentsBuilder.fromHttpUrl(baseUrl)
+                    .queryParam("apiKey", apiKey)
+                    .queryParam("ip", ip)
+                    .toUriString();
+        }
+
+        return UriComponentsBuilder.fromHttpUrl(baseUrl.replace("{ip}", ip))
+                .toUriString();
     }
 
     private String getPropertyKey(ProvidersEnum provider) {

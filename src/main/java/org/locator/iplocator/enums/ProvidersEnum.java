@@ -12,18 +12,17 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public enum ProvidersEnum {
 
-    IPAPI("IP-API", "IPAPI", Status.ACTIVE, "${iplocator.providers.ipapi.url}"),
-    IPSTACK("IPStack", "IPSTACK", Status.INACTIVE, "${iplocator.providers.ipstack.url}"),
-    IPGEOLOCATION("IP Geolocation", "IPGEO", Status.INACTIVE, "${iplocator.providers.ipgeolocation.url}"),
-    IPINFO("IPInfo", "IPINFO", Status.INACTIVE, "${iplocator.providers.ipinfo.url}"),
-    MAXMIND("MaxMind", "MAXMIND", Status.INACTIVE, "${iplocator.providers.maxmind.url}"),
-    IPDATA("IPData", "IPDATA", Status.INACTIVE, "${iplocator.providers.ipdata.url}"),
-    IPREGISTRY("IP Registry", "IPREG", Status.INACTIVE, "${iplocator.providers.ipregistry.url}");
+    IPAPI("IP-API", "IPAPI", Status.ACTIVE),
+    IPSTACK("IPStack", "IPSTACK", Status.INACTIVE),
+    IPGEOLOCATION("IP Geolocation", "IPGEO", Status.INACTIVE),
+    IPINFO("IPInfo", "IPINFO", Status.INACTIVE),
+    MAXMIND("MaxMind", "MAXMIND", Status.INACTIVE),
+    IPDATA("IPData", "IPDATA", Status.INACTIVE),
+    IPREGISTRY("IP Registry", "IPREG", Status.INACTIVE);
 
     private final String name;
     private final String shortCode;
     private final Status status;
-    private final String url;
 
     public enum Status {
         ACTIVE, INACTIVE, MAINTENANCE
