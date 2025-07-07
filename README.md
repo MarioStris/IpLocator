@@ -3,6 +3,7 @@
 ## Table of Contents
 - [Features](#features)
 - [Technology Stack](#technology-stack)
+- [Authentication](#authentication)
 - [API Endpoints](#api-endpoints)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
@@ -31,6 +32,46 @@ A Spring Boot application that provides IP geolocation services through multiple
 - **Spring Web** - REST API framework
 - **Spring Test** - Testing framework
 - **MockMvc** - Integration testing
+
+## Authentication
+
+The application uses Basic Authentication for API access. Credentials are configured in application properties.
+
+### Configuration
+
+Add the following properties to your `application.properties`:
+
+```properties
+auth.username=USERNAME
+auth.password=PASSWORD
+```
+
+### Usage
+
+Include the Basic Authentication header in your API requests:
+
+```bash
+# Using curl
+curl -H "Authorization: Basic YWRtaW46cGFzc3dvcmQxMjM=" http://localhost:8080/api/endpoint
+
+# Using username:password (curl will encode automatically)
+curl -u USERNAME:PASSWORD http://localhost:8080/api/endpoint
+```
+
+### Implementation
+
+The authentication is handled by `BasicAuthFilter` which:
+- Validates Basic Authentication headers
+- Compares credentials against application properties
+- Sets Spring Security context for authenticated requests
+- Allows unauthenticated access to `/api/auth/**`, `/swagger-ui/**`, and `/v3/api-docs/**`
+
+### Security Notes
+
+- Change default credentials in production
+- Use environment variables for sensitive credentials
+- Consider using encrypted property values for passwords
+
 
 ## API Endpoints
 
