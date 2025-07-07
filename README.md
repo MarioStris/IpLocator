@@ -151,8 +151,8 @@ curl "http://localhost:8080/api/ip-location/lookup/provider/IPAPI/ip/8.8.8.8"
 # Invalid IP format
 ```properties
 curl "http://localhost:8080/api/ip-location/lookup/provider/IPAPI/ip/invalid.ip"
+Returns: 400 Bad Request with error message
 ```
-# Returns: 400 Bad Request with error message
 
 ## Development
 
